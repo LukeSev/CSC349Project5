@@ -88,4 +88,39 @@ public class DiGraph {
         return indeg;
     }
 
+    public int[] topSort() throws IllegalArgumentException
+    {
+        // Get indegrees and create list to be returned later
+        int N = this.vertices.length; // For readability
+        int[] indeg = this.indegrees();
+        int[] sorted = new int[N];
+
+        // Create queue
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        for(int i = 1; i < N; i++) // using natural indexing
+        {
+            if(indeg[i] == 0)
+                queue.addLast(i-1);
+        }
+        int ind = 0, vert, curr;
+        while(!queue.isEmpty())
+        {
+            vert = queue.removeFirst();
+            sorted[ind] = vert+1;
+            ind++; // Increment index of output array
+
+            for(int k = 0; k < this.vertices[vert].size(); k++)
+            {
+                curr = this.vertices[vert].get(k);
+                indeg[curr+1] = indeg[curr+1]-1; // indeg uses natural indexing, vertices doesn't (great design I know)
+                if(indeg[curr+1] == 0)
+                    queue.addLast(curr);
+            }
+        }
+        if(ind != N)
+            throw new IllegalArgumentException("Cyclic graph");
+        return sorted;
+    }
+
 }

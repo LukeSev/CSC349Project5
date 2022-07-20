@@ -21,6 +21,7 @@ public class DiGraphTest {
         System.out.println("- edge count (enter e)");
         System.out.println("- vertex count (enter v)");
         System.out.println("- print graph (enter p)");
+        System.out.println("- topological sort (enter t)");
         System.out.println("- Quit (enter q)");
 
         int quit = 0;
@@ -72,6 +73,22 @@ public class DiGraphTest {
                         dg.print();
                         break;
 
+                    case 't':
+                        try
+                        {
+                            int[] sorted = dg.topSort();
+                            System.out.printf("Topological sorting of vertices:%n");
+                            System.out.print(sorted[0]);
+                            for (int i = 1; i < sorted.length; i++)
+                                System.out.printf(",%d", sorted[i]);
+                            System.out.println();
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("ERROR: Cyclic Graph");
+                        }
+                        break;
+
                     case 'q':
                         quit = 1;
                         break;
@@ -83,8 +100,6 @@ public class DiGraphTest {
             }
 
         }
-
-
 
 
     }
