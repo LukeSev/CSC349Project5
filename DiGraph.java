@@ -65,4 +65,27 @@ public class DiGraph {
 
     }
 
+    private int[] indegrees()
+    {
+        int[] indeg = new int[this.vertices.length + 1]; // Natural indexing for vertices
+
+        for(int i = 0; i < this.vertices.length; i++)
+        {
+            // For each vertex, look for what it's connected to and increase connected verts' indegrees
+            for(int j = 0; j < this.vertices[i].size(); j++)
+            {
+                indeg[this.vertices[i].get(j)+1]++; // increment indegree count using natural indexing
+            }
+        }
+
+        // For testing indegrees
+        /*
+        System.out.println();
+        for(int i = 0; i < indeg.length; i++)
+            System.out.printf("%d: %d%n", i, indeg[i]);
+         */
+
+        return indeg;
+    }
+
 }
